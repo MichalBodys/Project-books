@@ -48,6 +48,7 @@ function initActions(){
     event.preventDefault();
     const image = event.target.offsetParent;
     const imageId = image.getAttribute('data-id');
+
     console.log(imageId, 'id');
     //   if(image.classList.contains('favorite')){
     //     image.classList.remove('favorite');
@@ -70,6 +71,7 @@ function initActions(){
 
   booksFilter.addEventListener('click', function(callback){
     const clickedElement = callback.target;
+
     if(clickedElement.tagName === 'INPUT' && clickedElement.type === 'checkbox' && clickedElement.name === 'filter')
       console.log(clickedElement.value);
     if(clickedElement.checked) filters.push(clickedElement.value);
@@ -77,11 +79,34 @@ function initActions(){
       const valueIndex = filters.indexOf(clickedElement.value);
       filters.splice(valueIndex);
     }
-    console.log(filters);
+    filterBooks();
   });
-
-
 }
+
+function filterBooks() {
+
+
+  for (let book of dataSource.books) {
+    let shouldBeHidden = false;
+    const filterOfHiddenBooks = document.querySelector(
+      select.containerOf.image + '[data-id = "' + book.id + '"]'
+    );
+
+    for (const filter of filters) {
+      if (!book.details[filter]) {
+        shouldBeHidden = true;
+        break;
+      }
+    }
+
+    if (shouldBeHidden) {
+      filterOfHiddenBooks.classList.add('hidden');
+    } else {
+      filterOfHiddenBooks.classList.remove('hidden');
+    }
+  }
+}
+
 
 
 
