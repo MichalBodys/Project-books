@@ -1,4 +1,5 @@
 body{
+  color: #eee;
   background-color: #333;
 }
 
@@ -70,6 +71,7 @@ figure {
   }
 
   &__rating {
+    color: black;
     width: 80%;
     margin: 0 auto;
     background: #eee;

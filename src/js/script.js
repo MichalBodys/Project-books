@@ -1,3 +1,5 @@
+'use strict';
+
 const select = {
   containerOf: {
     booksList: '.books-list',
@@ -17,6 +19,8 @@ const templates = {
 };
 
 const bookContainer = document.querySelector(select.containerOf.booksList);
+let favoriteBooks = [];
+
 
 function RenderBooks(){
   for(let book of dataSource.books){
@@ -34,3 +38,38 @@ function RenderBooks(){
   }
 }
 RenderBooks();
+function initActions(){
+
+  const allImages = document.querySelectorAll(select.containerOf.image);
+  for(let image of allImages){
+    image.addEventListener('dblclick', function(event){
+      event.preventDefault();
+      const imageId = image.getAttribute('data-id');
+      console.log(imageId, 'id');
+      //   if(image.classList.contains('favorite')){
+      //     image.classList.remove('favorite');
+      //     favoriteBooks.splice(imageId);}else{
+      //     image.classList.add('favorite');
+      //     favoriteBooks.push(imageId);
+      //     console.log(favoriteBooks);
+      //   }
+      if(!image.classList.contains('favorite')){
+        image.classList.add('favorite');
+        favoriteBooks.push(imageId);
+      }else{
+        image.classList.remove('favorite');
+        let imageIndex = favoriteBooks.indexOf(imageId);
+        favoriteBooks.splice(imageIndex, 1);
+        console.log(imageIndex, 'index');
+      }
+      console.log(favoriteBooks);
+    });
+  }
+
+
+}
+initActions();
+
+
+
+
